@@ -27,8 +27,9 @@ const Product: FC<ProductProps> = ({ product, onDelete, onUpdateTitle, onUpdateP
         onUpdatePrice(product.id, updatedPrice);
     }
   return (
-    <div>
-      <img style={{width: "300px", height: "300px" }} src={product.image} alt="" /> 
+    <div className="w-full flex flex-col items-center align-center">
+      <img className="w-[400px] h-[350px] object-cover" src={product.image} alt="" /> 
+      <div className="w-full flex flex-col items-start justify-start">
         <h1 style={{color: product.isClub ? "green" : "red"}}>{product.title}</h1>
         <p>Price: {product.price}</p>
         <button onClick={() => onDelete(product.id)}>Delete Product</button>
@@ -36,6 +37,7 @@ const Product: FC<ProductProps> = ({ product, onDelete, onUpdateTitle, onUpdateP
         <input type="number" placeholder="New Price" onChange={(e) => setUpdatedPrice(Number(e.target.value))} />
         <button onClick={handleUpdateTitle}>Update Title</button>
         <button onClick ={handleUpdatePrice}>Update Price</button>
+        </div>
         </div>
   )
 }

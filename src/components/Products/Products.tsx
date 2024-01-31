@@ -28,7 +28,7 @@ const Products: FC = () => {
     //Fetch Products Function
     const getProductList = async () => {
         try {
-        // Read Data
+        // Get Data
         const data = await getDocs(productsCollectionRef);
         const filteredData: ProductItem[] = data.docs.map((doc) => ({...doc.data(), id: doc.id} as ProductItem)) ;
         // Set List
@@ -107,7 +107,7 @@ const Products: FC = () => {
     };
     
     return (
-    <div>
+    <div className="bg-[#ffffff]">
         <div>
             <input type="text" placeholder="Product Title" onChange={(e) => {setNewTitle(e.target.value)}} />
             <input placeholder="Price" type="number" onChange={(e) => {setNewPrice(Number(e.target.value))}} />
@@ -117,7 +117,9 @@ const Products: FC = () => {
             <label>Is a Club</label>
             <button onClick={handleProductSubmit}>Submit Product</button>
         </div>
-            {productList.map((product) => (
+        <div className="w-full flex items-center justify-center">
+            <div className="grid grid-cols-3 gap-4">
+                {productList.map((product) => (
                 <div>
                     <Product 
                     key={product.id} 
@@ -127,7 +129,9 @@ const Products: FC = () => {
                     onUpdateTitle={updateTitle} />
                 </div>
             ))}
+            </div>
         </div>
+    </div>
   )
 }
 

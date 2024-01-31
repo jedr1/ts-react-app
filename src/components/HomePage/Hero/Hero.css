@@ -1,0 +1,141 @@
+/* Parent Div*/
+.side {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    position: absolute;
+}
+
+/*Title*/
+.side .title {
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 6vw;
+    margin: 0px 16vw;
+    margin-top: 190px;
+    width: 70vw;
+    overflow: hidden;
+}
+.title-width {
+    width: 650px;
+    overflow: hidden;
+    font-family: 'Poppins';
+    line-height: 1.3;
+    font-size: 5.5vw;
+}
+
+/*Sub Header*/
+.sub{
+    margin-left: 16vw;
+    margin-top: 25px;
+    font-size: 1.5rem;
+    width: 500px;
+    color:#000;
+}
+.white {
+    color: #fff;
+}
+
+/* Left Side of the Swiper */
+#left-side {
+    background-image: url('../../../assets/swing.jpg');
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    z-index: 50;
+    animation: move-right 5.2s ease-in-out infinite alternate;
+}
+
+/* Right Side of the Swiper*/
+#right-side {
+    z-index: 49;
+    background-image: url('../../../assets/range.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Swiper Animation */
+@keyframes move-right {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0%;
+    }
+}
+
+/* Key Word */
+.fancy {
+    font-family: 'Lora', serif;
+    font-size: 5vw;
+    text-transform: uppercase;
+}
+#left-side .fancy {
+    color: #081542;
+}
+#right-side .title {
+    color: #000;
+}
+#right-side .fancy {
+    color: #fff;
+}
+
+/* Media Queries */
+@media screen and (max-width: 1400px) {
+    .side .title {
+        font-size: 5rem;
+    }
+    .fancy {
+        font-size: 6rem;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    .side .title {
+        font-size: 3.5rem;
+        width: 95vw;
+    }
+    .fancy {
+        font-size: 4.5rem;
+    }
+  }
+@media screen and (max-width: 500px) {
+    .side .title {
+        font-size: 3rem;
+        width: 95vw;
+        margin: 0vw 10vw;
+    }
+    .sub {
+        margin-left: 10vw;
+    }
+    .fancy {
+        font-size: 3.5rem;
+    }
+    .title-width {
+        width: auto;
+    }
+    .sub {
+        width: 250px;;
+        margin-top: -10px;
+        font-size: 1.1rem;
+    }
+    .side {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        justify-content: center;
+       
+    }
+    .side .title {
+        margin-top: 50px;
+    }
+}
+@media screen and (max-width: 380px) {
+    .side .title {
+        font-size: 2.5rem;
+        width: 90vw;
+        margin: 0vw 10vw;
+        margin-top: 75px;
+    }
+}

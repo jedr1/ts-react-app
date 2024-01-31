@@ -1,0 +1,51 @@
+/*Parent Div*/
+.menu-icon {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    position: absolute;
+    left: 0;
+    margin-left: 150px;
+    z-index: 999;
+    margin-top: 5px;
+  }
+
+  /*Top 2 bars*/
+  .bar {
+    width: 30px;
+    height: 4px;
+    background-color: #ffffff;
+    /* color: #ffc8da */
+    margin: 4px 0;
+    transition: transform 0.3s ease;
+  }
+
+  /*Bottom bar*/
+.bar2 {
+  width: 22.5px;
+  transition: 200ms ease-in-out;
+}
+/*Bottom bar when hovered*/
+.bar-hovered {
+  width: 30px;
+}
+/*Transformation onClick*/
+  .open .bar:nth-child(1) {
+    width: 27px;
+    transform: rotate(-45deg) translate(-2.5px, 6px);
+  }
+  .open .bar:nth-child(2) {
+    width: 27px;
+    transform: rotate(45deg) translate(-1px, -6px);
+  }
+  .open .bar:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+    display: none;
+  }
+
+  /*Media Queries*/
+  @media screen and (max-width: 768px) {
+    .menu-icon {
+      margin-left: 25px;
+    }
+  }
