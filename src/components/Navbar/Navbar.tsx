@@ -61,6 +61,7 @@ const LinksWrap = styled.div`
   align-items: center;
   justify-content: center;
   gap: 20px;
+  height: 100%;
   @media screen and (max-width: 768px) {
     margin-top: -5px;
     margin-right: 25px;
@@ -68,9 +69,9 @@ const LinksWrap = styled.div`
   }
 `;
 const Circle = styled.div`
-  position: absolute;
-  top: -15px;
-  right: -20px; 
+  //position: relative;
+  //top: -15px;
+  //right: -10px; 
   width: 30px;
   height: 30px;
   background-color: #ba9f07;
@@ -91,7 +92,9 @@ const Circle = styled.div`
 `;
 const CartContainer = styled.div`
   position: relative;
-  display: inline-block;
+  display: flex;
+  width: 100%;
+  height: 100%;
 `;
 const IconWrap = styled.div`
   position: relative;
@@ -100,7 +103,7 @@ const I = styled.i`
   font-size: 2.2rem;
   color: #fff;
   transition: 500ms ease-in-out;
-  overflow: hidden;
+  overflow-y: hidden;
 
   &:hover {
     transform: translateY(-5px);
@@ -164,7 +167,7 @@ const [isHovered, setIsHovered] = useState(false);
             </Link>
           <Link to="/cart">
             <CartContainer>
-              <I className="fa-solid fa-basket-shopping"></I>
+              <I className="fa-solid fa-basket-shopping mt-[-7px]"></I>
               <Circle>3</Circle>
             </CartContainer>
           </Link>

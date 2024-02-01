@@ -48,7 +48,7 @@ const Auth: FC = () => {
         <div className="text-[1.3rem] mb-[10px]">Sign in with Email</div>
       <input className="w-[350px] mb-[15px]" type="email" placeholder="Email" onChange={(e) => setEmail(e.target.value)} />
       <input className="w-[350px] mb-[15px]" type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
-      <button className="bg-[#081542] px-6 py-2 text-white rounded-[5px] mb-[25px] text-[1.3rem] transition duration-300 ease-in-out hover:bg-white hover:text-black border border-solid border-[#081542]" onClick={handleSignIn}>Sign In</button>
+      <button className="bg-[#081542] px-6 py-2 text-white rounded-[5px] mb-[25px] text-[1.3rem] transition duration-300 ease-in-out border border-solid border-[#081542] hover:bg-[#102674]" onClick={handleSignIn}>Sign In</button>
       </div>
       <button className="underline text-[1.3rem]" onClick={handleSignOut}>Sign Out</button>
       
