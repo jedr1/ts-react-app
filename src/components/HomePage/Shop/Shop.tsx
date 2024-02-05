@@ -30,7 +30,6 @@ const Shop: FC = () => {
         console.error(err);
     }
 }
-
     useEffect(() => {
         fetchProducts();
     }, [])

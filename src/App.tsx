@@ -10,12 +10,17 @@ import {
 import Products from './components/Products/Products';
 import Navbar from './components/Navbar/Navbar';
 import HomePage from './components/HomePage/HomePage';
+import { CartProvider } from './components/Cart/CartContext';
+import CartPage from './components/Cart/CartPage';
+import AuthOptions from './components/Auth/AuthOptions';
+import Auth0Page from './components/Auth/Auth0/Auth0Page';
 
 
 
 function App() {
-  const [isOpen, setIsOpen] = useState(false);
 
+  //Toggle Menu Icon 
+  const [isOpen, setIsOpen] = useState(false);
   const toggle = () => {
     setIsOpen(!isOpen);
   };
@@ -28,7 +33,10 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/update" element={<Products />} />
-        <Route path="/sign-in" element={<Auth />} />
+        <Route path="/sign-in" element={<AuthOptions />} />
+        <Route path="/sign-in-with-firebase" element={<Auth />} />
+        <Route path="/sign-in-with-auth0" element={<Auth0Page />} />
+        <Route path="/cart" element={<CartPage />} />
       </Routes>
     </Router>
     

@@ -39,7 +39,7 @@ const Auth: FC = () => {
   }
   return (
     <div className="h-full mt-[200px] w-full flex flex-col items-center justify-center gap-[25px]">
-      <div onClick={signInWithGoogle} className="w-[350px] px-6 py-4 border-2 border-solid border-[#eee] flex items-center justify-center gap-3 transition duration-300 ease-in-out hover:border-black hover:cursor-pointer">
+      <div onClick={signInWithGoogle} className="w-[350px] px-6 py-4 border-2 border-solid border-[#eee] flex items-center justify-center gap-3 transition duration-500 ease hover:border-black hover:cursor-pointer">
         <img className="w-[40px] h-[40px] object-cover" src={Ggl} alt=""/>
         <div className="text-[1.5rem] h-full flex items-center justify-center">Sign in with Google</div>
       </div>

@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import './MenuIcon.css';
 import styled from 'styled-components';
 import GolfLogo from '../../assets/logo.png';
+import { collection, getDocs } from 'firebase/firestore';
+import { auth, db } from '../../config/firebase-config';
+import { onAuthStateChanged, User } from 'firebase/auth';
+import { useAuth0 } from '@auth0/auth0-react';
 
 //Parent divs
 const Container = styled.div`
@@ -55,23 +59,19 @@ const Logo = styled.img`
 //Sign In and Cart Icons
 const LinksWrap = styled.div`
   position: absolute;
-  right: 0;
-  margin-right: 75px;
+  right: 75px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 0px;
   height: 100%;
   @media screen and (max-width: 768px) {
     margin-top: -5px;
-    margin-right: 25px;
+    right: 25px;
     gap: 10px;
   }
 `;
 const Circle = styled.div`
-  //position: relative;
-  //top: -15px;
-  //right: -10px; 
   width: 30px;
   height: 30px;
   background-color: #ba9f07;
@@ -95,20 +95,27 @@ const CartContainer = styled.div`
   display: flex;
   width: 100%;
   height: 100%;
+  transition: 300ms ease-in-out;
+  
+  &:hover {
+    transform: translateY(-5px);
+    cursor: pointer;
+  }
 `;
 const IconWrap = styled.div`
-  position: relative;
+  //position: relative;
+  transition: 300ms ease-in-out;
+
+  &:hover {
+    transform: translateY(-5px);
+    cursor: pointer;
+  }
 `;
 const I = styled.i`
   font-size: 2.2rem;
   color: #fff;
   transition: 500ms ease-in-out;
   overflow-y: hidden;
-
-  &:hover {
-    transform: translateY(-5px);
-    cursor: pointer;
-  }
 `;
 
 interface AppProps {
@@ -116,26 +123,55 @@ interface AppProps {
   isOpen: boolean;
   toggle2: () => void;
 } 
+interface CartItem {
+  title: string;
+  price: number;
+  id: string;
+  image?: string,
+}
 
 const Navbar: FC<AppProps> = ({ toggle, isOpen, toggle2 }) => {
-const [isHovered, setIsHovered] = useState(false);
 
+  //Menu Icon Hover Effect
+const [isHovered, setIsHovered] = useState(false);
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
-
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
-  const [isHovered2, setIsHovered2] = useState(false);
 
-  const handleMouseEnter2 = () => {
-    setIsHovered2(true);
-  };
-  const handleMouseLeave2 = () => {
-    setIsHovered2(false);
-  };
- 
+  //Get cartItems Collection to Display Length of cartItems
+  const [cartProducts, setCartProducts] = useState<CartItem[]>([]);
+
+  const cartItemsRef = collection(db, "cartItems");
+
+  const fetchCartItems = async () => {
+    try {
+      const data = await getDocs(cartItemsRef);
+      const cartData: CartItem[] = data.docs.map((doc) => ({...doc.data(), id: doc.id} as CartItem));
+      setCartProducts(cartData);
+    } catch(err) {
+      console.error(err);
+    }
+  }
+  useEffect(() => {
+    fetchCartItems();
+  }, [fetchCartItems]);
+  
+  //Get Profile Photo if Signed in
+  const [firebaseUser, setFirebaseUser] = useState<User | null>(null);
+  useEffect(() => {
+    const onAuthChange = onAuthStateChanged(auth, (user) => {
+      setFirebaseUser(user);
+    });
+
+    return () => onAuthChange();
+  })
+
+  //Get User Info from Auth0
+  const { user, isAuthenticated } = useAuth0();
+
   return (
     <Container>
       <Wrapper>
@@ -159,18 +195,39 @@ const [isHovered, setIsHovered] = useState(false);
           <Logo src={GolfLogo} alt="logo" onClick={toggle2} />
           </Link>
           {/*Sign In and Cart*/}
-        <LinksWrap onClick={toggle2}>
-            <Link to="/sign-in">
-              <IconWrap>
-              <I className="fa-regular fa-user"></I>
-              </IconWrap>
-            </Link>
+        <LinksWrap className="w-[150px]" onClick={toggle2}>
+        { isAuthenticated && user ? 
+                  (
+                    
+                    <div className="rounded-[50%] flex items-center justify-center transition duration-300 ease hover:translate-y-[-5px] hover:cursor-pointer">
+                      <Link to="/sign-in-with-auth0">
+                      <img className="h-[50px] w-[70px] object-cover" src={user?.picture} alt={user?.name} />
+                      </Link>
+                    </div>
+                  )
+                  :
+                  <IconWrap className="w-full h-full flex items-center justify-center">
+                  <Link to="/sign-in" >
+                  <I className="fa-regular fa-user"></I>
+                  </Link>
+                  { firebaseUser===null ? 
+                  <div className="mt-[-20px]">
+                    <i className="fa-solid fa-circle-xmark h-[20px] w-[20px] text-[#e10000]"></i>
+                  </div>
+                  : 
+                  <div className="mt-[-20px]">
+                    <i className="fa-solid fa-circle-check h-[20px] w-[20px] text-green-600 "></i>
+                    </div>
+                    }
+                  </IconWrap>
+                }
+            <CartContainer className="flex items-center justify-center h-full">
           <Link to="/cart">
-            <CartContainer>
-              <I className="fa-solid fa-basket-shopping mt-[-7px]"></I>
-              <Circle>3</Circle>
+              <I className="fa-solid fa-basket-shopping  w-full"></I>
+              </Link>
+              <Circle className="mt-[-30px]">{cartProducts.length}</Circle>
             </CartContainer>
-          </Link>
+            
         </LinksWrap>
       </Wrapper>
     </Container>
