@@ -10,7 +10,6 @@ interface User {
     email: string | null;
     displayName: string | null;
     photoURL: string | null;
-    // Add other properties as needed
   }
   const initialUser: User | null = null;
 
